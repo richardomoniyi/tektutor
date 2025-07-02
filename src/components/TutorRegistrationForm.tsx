@@ -244,7 +244,7 @@ const TutorRegistrationForm: React.FC<TutorRegistrationFormProps> = ({
                   </SelectField>
                   <SelectField id="birthMonth" name="birthMonth" required icon={Calendar} value={formData.birthMonth} onChange={handleChange}>
                     <option value="">Month</option>
-                    {months.map((month, i) => <option key={month} value={month}>{month}</option>)}
+                    {months.map((month) => <option key={month} value={month}>{month}</option>)}
                   </SelectField>
                   <SelectField id="birthYear" name="birthYear" required icon={Calendar} value={formData.birthYear} onChange={handleChange}>
                     <option value="">Year</option>
