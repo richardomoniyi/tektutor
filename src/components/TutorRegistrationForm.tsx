@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Upload, FileText, Calendar, User, Mail, Phone, Building, Hash, Globe, ChevronDown } from 'lucide-react';
-
+import { useEffect } from "react";
+import { gapi } from "gapi-script";
 // --- Helper Data ---
 const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const months = [
@@ -13,6 +14,7 @@ const defaultCountries = ['Ghana', 'Nigeria', 'United States', 'United Kingdom',
 const defaultCourses = ['Data Analytics', 'Software Development', 'Digital Marketing', 'Cloud Computing'];
 const defaultStatuses = ['Student', 'Employed', 'Unemployed', 'Other'];
 const defaultEducationLevels = ['High School', 'Associate Degree', 'Bachelor\'s Degree', 'Master\'s Degree', 'Doctorate'];
+
 
 // --- Type Definition for Form State ---
 interface IFormData {
@@ -53,7 +55,7 @@ interface TutorRegistrationFormProps {
 const TutorRegistrationForm: React.FC<TutorRegistrationFormProps> = ({
   onSubmit,
   onSave,
-  logoUrl = "https://placehold.co/150x50/ffffff/333333?text=TEKTUTOR",
+  logoUrl = "/growtechafrica.png",/*https://placehold.co/150x50/ffffff/333333?text=TEKTUTOR"*/
   programTitle = "Microsoft Skills for Jobs Microdegree Program",
   countries = defaultCountries,
   courses = defaultCourses,
@@ -86,6 +88,18 @@ const TutorRegistrationForm: React.FC<TutorRegistrationFormProps> = ({
 
   const [fileName, setFileName] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+// --- Google API Initialization ---
+const CLIENT_ID = "37330235633-mg8j08itj9r63g0enqks67olvia4dsnf.apps.googleusercontent.com";
+const SCOPES = "https://www.googleapis.com/auth/gmail.send";
+  useEffect(() => {
+    const initClient = () => {
+      gapi.client.init({
+        clientId: CLIENT_ID,
+        scope: SCOPES,
+      });
+    };
+    gapi.load("client:auth2", initClient);
+  }, []);
 
   // --- Event Handlers ---
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -107,10 +121,29 @@ const TutorRegistrationForm: React.FC<TutorRegistrationFormProps> = ({
     }
   };
 
+  const handleAuth = () => {
+    gapi.auth2.getAuthInstance().signIn().then((user: any) => {
+      const accessToken = user.getAuthResponse().access_token;
+      // Send email data + token to backend API
+      fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: "richard.omoniyi@gmail.com",
+          subject: "Regsitration Form Submission",
+          body: JSON.stringify(formData, null, 2), // Send form data as email body
+          accessToken: accessToken,
+        }),
+      });
+    });
+  };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitted(true);
     if (onSubmit) onSubmit(formData);
+     handleAuth(); // Call handleAuth to send the email
   };
   
   const handleSave = () => {
@@ -208,7 +241,9 @@ const TutorRegistrationForm: React.FC<TutorRegistrationFormProps> = ({
       <div className="w-full max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-2xl shadow-xl">
         {/* Form Header */}
         <div className="text-center mb-8">
-            <img src={logoUrl} alt="Institute Logo" className="mx-auto mb-4 h-12" />
+          <a href="index.html" className="block mb-4">
+            <img src={logoUrl} alt="Institute Logo" className="mx-auto mb-4 h-16"/>
+            </a>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800">{programTitle}</h1>
           <p className="text-gray-500 mt-2">Fill out the form carefully for registration</p>
         </div>
