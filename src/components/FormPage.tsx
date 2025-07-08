@@ -52,7 +52,7 @@ interface TutorRegistrationFormProps {
   educationLevels?: string[];
 }
 
-const TutorRegistrationForm: React.FC<TutorRegistrationFormProps> = ({
+const FormPage: React.FC<TutorRegistrationFormProps> = ({
   onSubmit,
   onSave,
   logoUrl = "/growtechafrica.png",/*https://placehold.co/150x50/ffffff/333333?text=TEKTUTOR"*/
@@ -400,4 +400,4 @@ const SCOPES = "https://www.googleapis.com/auth/gmail.send";
   );
 };
 
-export default TutorRegistrationForm;
+export default FormPage;

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowTechAfrica - Your Gateway to a Tech Career</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/svg+xml" href="/growlogo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-bg {
+            background-color: #111827; /* A dark gray for a modern feel */
+        }
+        .grass-green {
+            color: #4ade80; /* A vibrant grass green */
+        }
+        .bg-grass-green {
+            background-color: #4ade80;
+        }
+        .border-grass-green {
+            border-color: #4ade80;
+        }
+        .hover\:bg-grass-green-dark:hover {
+            background-color: #36b37e; /* A slightly darker green for hover effects */
+        }
+        /* Remove @apply usage and use classes directly in HTML */
+        .section-title {
+            /* Styles moved to class attribute in HTML */
+        }
+        .section-subtitle {
+            /* Styles moved to class attribute in HTML */
+        }
+    </style>
+    <script>
+  // Simple router for static hosting
+  if (location.pathname === '/form') {
+    window.location.replace('/form.html');
+  }
+  if (location.pathname === '/' || location.pathname === '/index' || location.pathname === '/index.html') {
+    // Already on index.html, do nothing
+  }
+</script>
+</head>
+<body class="bg-white text-gray-700">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+              
+            <a href="#" class="flex items-center">
+                <!-- SVG Logo -->
+             <img src ="/growtechafrica.png" width="50" height="80"/>
+                <span class="text-2xl font-bold text-gray-800 ml-2">GrowTechAfrica</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="text-gray-600 hover:text-grass-green transition duration-300">About Us</a>
+                <a href="#programs" class="text-gray-600 hover:text-grass-green transition duration-300">Programs</a>
+                <a href="#partners" class="text-gray-600 hover:text-grass-green transition duration-300">Partners</a>
+                <a href="#contact" class="text-gray-600 hover:text-grass-green transition duration-300">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#about" class="block py-2 px-4 text-sm hover:bg-gray-100">About Us</a>
+            <a href="#programs" class="block py-2 px-4 text-sm hover:bg-gray-100">Programs</a>
+            <a href="#partners" class="block py-2 px-4 text-sm hover:bg-gray-100">Partners</a>
+            <a href="#contact" class="block py-2 px-4 text-sm hover:bg-gray-100">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white py-20 md:py-32">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Empowering Africa's Future with Tech Skills</h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto">In partnership with KAMK University and Microsoft, we offer world-class microdegree programs to equip you for the global tech industry.</p>
+            <a href="#programs" class="bg-grass-green text-white font-bold py-3 px-8 rounded-full hover:bg-grass-green-dark transition duration-300 text-lg">Explore Our Programs</a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-20 margin-left-20">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">About GrowTechAfrica</h2>
+            <p class="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">We are committed to bridging the tech skills gap in Africa by providing accessible, high-quality education that leads to tangible career opportunities.</p>
+            <!--p class="section-subtitle">We are committed to bridging the tech skills gap in Africa by providing accessible, high-quality education that leads to tangible career opportunities.</p-->
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="ml-12">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Our Vision</h3>
+                    <p class="mb-4">Our vision is to cultivate a new generation of African tech leaders. We believe in the power of education to transform lives and economies. By partnering with world-renowned institutions, we bring globally recognized certifications and skills to the African youth and adults.</p>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Our Mission</h3>
+                    <p class="mb-4">Our mission is to provide accessible, high-quality tech education that empowers individuals to thrive in the digital economy. We aim to equip learners with the skills they need to succeed in today's fast-paced tech landscape, fostering innovation and entrepreneurship across the continent.</p>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Our Values</h3>
+                    <ul class="list-disc list-inside text-gray-600">
+                        <li>Inclusivity: We believe in equal access to education for all.</li>
+                        <li>Excellence: We strive for the highest standards in education and mentorship.</li>
+                        <li>Innovation: We embrace new technologies and teaching methods to enhance learning.</li>
+                        <li>Community: We foster a supportive community of learners and mentors.</li>
+                        <li>Impact: We measure our success by the positive change we create in individuals and communities.</li>
+                    </ul>
+                    <p class="mt-4">Join us in our mission to empower Africa's future through technology. Together, we can build a brighter, more inclusive digital economy.</p>    
+                </div>
+                <div class="text-center">
+                    <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=2500&auto=format&fit=crop" alt="Diverse group of students learning" class="rounded-lg shadow-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="py-20 bg-gray-50">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Microsoft Skills for Jobs Microdegree Programs</h2>
+            <p class="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">These programs are your gateway to becoming a proficient technology expert. Each program is designed for online, independent study, supported by mentorship, and awards certificates with European Credit Transfer and Accumulation System (ECTS) credits.</p>
+            <!--p class="section-subtitle">These programs are your gateway to becoming a proficient technology expert. Each program is designed for online, independent study, supported by mentorship, and awards certificates with European Credit Transfer and Accumulation System (ECTS) credits.</p-->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Program Card 1 -->
+                <div class="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Cloud and Cybersecurity</h3>
+                    <p class="mb-4">Gain expertise in one of the most in-demand fields in technology. Learn to secure and manage cloud infrastructure.</p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><span class="font-bold grass-green">12 ECTS</span> Credits</li>
+                        <li><span class="font-bold grass-green">324 Hours</span> of Learning</li>
+                        <li><span class="font-bold grass-green">6 Courses</span></li>
+                    </ul>
+                </div>
+                <!-- Program Card 2 -->
+                <div class="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Power Platform</h3>
+                    <p class="mb-4">Master Microsoft's Power Platform to build custom apps, automate workflows, and analyze data without writing code.</p>
+                     <ul class="space-y-2 text-gray-600">
+                        <li><span class="font-bold grass-green">8 ECTS</span> Credits</li>
+                        <li><span class="font-bold grass-green">216 Hours</span> of Learning</li>
+                        <li><span class="font-bold grass-green">4 Courses</span></li>
+                    </ul>
+                </div>
+                <!-- Program Card 3 -->
+                <div class="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">DEV AI</h3>
+                    <p class="mb-4">Dive into the world of Artificial Intelligence. Learn to develop and deploy AI solutions using modern tools and techniques.</p>
+                     <ul class="space-y-2 text-gray-600">
+                        <li><span class="font-bold grass-green">12 ECTS</span> Credits</li>
+                        <li><span class="font-bold grass-green">324 Hours</span> of Learning</li>
+                        <li><span class="font-bold grass-green">7 Courses</span></li>
+                    </ul>
+                    
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                    <a href="form.html" class="bg-grass-green text-white font-bold py-3 px-8 rounded-full hover:bg-grass-green-dark transition duration-300 text-lg">Enroll Now</a>
+                </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="py-20">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Our Esteemed Partners</h2>
+            <p class="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">We collaborate with global leaders in education and technology to bring you the best learning experience and opportunities.</p>
+            <!--p class="section-subtitle">We collaborate with global leaders in education and technology to bring you the best learning experience and opportunities.</p-->
+            <div class="flex flex-wrap justify-center items-center gap-12 md:gap-20">
+                <img src="/kamklogo.png" alt="KAMK University Logo" class="h-16 md:h-20" onerror="this.onerror=null; this.src='https://placehold.co/200x80/000000/FFFFFF?text=KAMK+University';">
+                <img src="/microsoft.png" alt="Microsoft Logo" class="h-16 md:h-20" onerror="this.onerror=null; this.src='https://placehold.co/200x80/000000/FFFFFF?text=Microsoft';">
+                <!-- Add other partner logos here from the brochure if available and clear -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-800 text-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Get In Touch</h2>
+            <p class="text-center text-lg text-gray-300 mb-12 max-w-3xl mx-auto">Have questions? Want to enroll? We'd love to hear from you. Reach out to us, and let's start your tech journey together.</p>
+            <div class="max-w-lg mx-auto text-center">
+                <p class="text-lg mb-2">Email us at: <a href="mailto:contact@growtechafrica.com" class="text-grass-green hover:underline">contact@growtechafrica.com</a></p>
+                <p class="text-lg">Or visit us at: No 33 Street, Ikoyi, Lagos, Nigeria</p>
+                 <div class="mt-8">
+                    <a href="/form" class="bg-grass-green text-white font-bold py-3 px-8 rounded-full hover:bg-grass-green-dark transition duration-300 text-lg">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 GrowTechAfrica.com. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
