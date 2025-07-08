@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
 import { Link } from "react-router-dom"; // Remove if not using React Router
+import { useEffect } from "react";
 
 const HomePage = () => {
   useEffect(() => {
