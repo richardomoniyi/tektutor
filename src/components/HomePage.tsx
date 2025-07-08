@@ -45,7 +45,7 @@ const HomePage = () => {
       {/* Header */}
       <header className="bg-white shadow-md sticky top-0 z-50">
         <nav className="container mx-auto px-6 py-3 flex justify-between items-center">
-          <a href="#" className="flex items-center">
+          <a href="/" className="flex items-center">
             <img src="/growtechafrica.png" width={50} height={80} alt="GrowTechAfrica Logo" />
             <span className="text-2xl font-bold text-gray-800 ml-2">GrowTechAfrica</span>
           </a>

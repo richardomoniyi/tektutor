@@ -241,7 +241,7 @@ const SCOPES = "https://www.googleapis.com/auth/gmail.send";
       <div className="w-full max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-2xl shadow-xl">
         {/* Form Header */}
         <div className="text-center mb-8">
-          <a href="index.html" className="block mb-4">
+          <a href="/" className="block mb-4">
             <img src={logoUrl} alt="Institute Logo" className="mx-auto mb-4 h-16"/>
             </a>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800">{programTitle}</h1>
