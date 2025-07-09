@@ -52,6 +52,69 @@ interface TutorRegistrationFormProps {
   educationLevels?: string[];
 }
 
+  // --- Reusable Input Components ---
+  interface InputFieldProps {
+    id: string;
+    name: string;
+    type?: string;
+    placeholder?: string;
+    required?: boolean;
+    icon?: React.ElementType;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  }
+
+  const InputField: React.FC<InputFieldProps> = ({
+    id,
+    name,
+    type = 'text',
+    placeholder,
+    required = false,
+    icon: Icon,
+    value,
+    onChange,
+  }) => (
+    <div className="relative w-full">
+      <input
+        id={id}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        required={required}
+        value={value}
+        onChange={onChange}
+        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+      />
+      {Icon && <Icon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />}
+    </div>
+  );
+
+  interface SelectFieldProps {
+    id: string;
+    name: string;
+    required?: boolean;
+    icon?: React.ElementType;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    children: React.ReactNode;
+  }
+
+  const SelectField: React.FC<SelectFieldProps> = ({ id, name, required = false, icon: Icon, value, onChange, children }) => (
+    <div className="relative w-full">
+      <select
+        id={id}
+        name={name}
+        required={required}
+        value={value}
+        onChange={onChange}
+        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+      >
+        {children}
+      </select>
+      {Icon && <Icon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />}
+      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+    </div>
+  );
 const FormPage: React.FC<TutorRegistrationFormProps> = ({
   onSubmit,
   onSave,
@@ -153,70 +216,6 @@ const SCOPES = "https://www.googleapis.com/auth/gmail.send";
       alert('Your progress has been saved!');
     }
   };
-
-  // --- Reusable Input Components ---
-  interface InputFieldProps {
-    id: string;
-    name: string;
-    type?: string;
-    placeholder?: string;
-    required?: boolean;
-    icon?: React.ElementType;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  }
-
-  const InputField: React.FC<InputFieldProps> = ({
-    id,
-    name,
-    type = 'text',
-    placeholder,
-    required = false,
-    icon: Icon,
-    value,
-    onChange,
-  }) => (
-    <div className="relative w-full">
-      <input
-        id={id}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        value={value}
-        onChange={onChange}
-        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-      />
-      {Icon && <Icon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />}
-    </div>
-  );
-
-  interface SelectFieldProps {
-    id: string;
-    name: string;
-    required?: boolean;
-    icon?: React.ElementType;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-    children: React.ReactNode;
-  }
-
-  const SelectField: React.FC<SelectFieldProps> = ({ id, name, required = false, icon: Icon, value, onChange, children }) => (
-    <div className="relative w-full">
-      <select
-        id={id}
-        name={name}
-        required={required}
-        value={value}
-        onChange={onChange}
-        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-      >
-        {children}
-      </select>
-      {Icon && <Icon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />}
-      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
-    </div>
-  );
 
   // --- Render Logic ---
   if (isSubmitted) {
