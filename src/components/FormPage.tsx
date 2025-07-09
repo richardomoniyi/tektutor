@@ -1,20 +1,58 @@
-import React, { useState } from 'react';
-import { Upload, FileText, Calendar, User, Mail, Phone, Building, Hash, Globe, ChevronDown } from 'lucide-react';
-import { useEffect } from "react";
-import { gapi } from "gapi-script";
+import React, { useState } from "react";
+import {
+  Upload,
+  FileText,
+  Calendar,
+  User,
+  Mail,
+  Phone,
+  Building,
+  Hash,
+  Globe,
+  ChevronDown,
+} from "lucide-react";
+
 // --- Helper Data ---
 const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const months = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 const currentYear = new Date().getFullYear();
 const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
-const defaultCountries = ['Ghana', 'Nigeria', 'United States', 'United Kingdom', 'Canada'];
-const defaultCourses = ['Data Analytics', 'Software Development', 'Digital Marketing', 'Cloud Computing'];
-const defaultStatuses = ['Student', 'Employed', 'Unemployed', 'Other'];
-const defaultEducationLevels = ['High School', 'Associate Degree', 'Bachelor\'s Degree', 'Master\'s Degree', 'Doctorate'];
-
+const defaultCountries = [
+  "Ghana",
+  "Nigeria",
+  "United States",
+  "United Kingdom",
+  "Canada",
+];
+const defaultCourses = [
+  "Data Analytics",
+  "Software Development",
+  "Digital Marketing",
+  "Cloud Computing",
+];
+const defaultStatuses = ["Student", "Employed", "Unemployed", "Other"];
+const defaultEducationLevels = [
+  "High School",
+  "Associate Degree",
+  "Bachelor's Degree",
+  "Master's Degree",
+  "Doctorate",
+];
+const token = import.meta.env.VITE_GTECH_TOKEN;
+const apiUrl = import.meta.env.VITE_GTECH_URL;
 
 // --- Type Definition for Form State ---
 interface IFormData {
@@ -33,8 +71,8 @@ interface IFormData {
   mobileNumber: string;
   phoneNumber: string;
   company: string;
-  ghanaCardNo: string;
-  ghanaCardImage: File | null;
+  cardNo: string;
+  cardImage: File | null;
   course: string;
   status: string;
   levelOfEducation: string;
@@ -52,73 +90,85 @@ interface TutorRegistrationFormProps {
   educationLevels?: string[];
 }
 
-  // --- Reusable Input Components ---
-  interface InputFieldProps {
-    id: string;
-    name: string;
-    type?: string;
-    placeholder?: string;
-    required?: boolean;
-    icon?: React.ElementType;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  }
+// --- Reusable Input Components ---
+interface InputFieldProps {
+  id: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+  required?: boolean;
+  icon?: React.ElementType;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-  const InputField: React.FC<InputFieldProps> = ({
-    id,
-    name,
-    type = 'text',
-    placeholder,
-    required = false,
-    icon: Icon,
-    value,
-    onChange,
-  }) => (
-    <div className="relative w-full">
-      <input
-        id={id}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        value={value}
-        onChange={onChange}
-        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-      />
-      {Icon && <Icon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />}
-    </div>
-  );
+const InputField: React.FC<InputFieldProps> = ({
+  id,
+  name,
+  type = "text",
+  placeholder,
+  required = false,
+  icon: Icon,
+  value,
+  onChange,
+}) => (
+  <div className="relative w-full">
+    <input
+      id={id}
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      required={required}
+      value={value}
+      onChange={onChange}
+      className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+    />
+    {Icon && (
+      <Icon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+    )}
+  </div>
+);
 
-  interface SelectFieldProps {
-    id: string;
-    name: string;
-    required?: boolean;
-    icon?: React.ElementType;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-    children: React.ReactNode;
-  }
+interface SelectFieldProps {
+  id: string;
+  name: string;
+  required?: boolean;
+  icon?: React.ElementType;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  children: React.ReactNode;
+}
 
-  const SelectField: React.FC<SelectFieldProps> = ({ id, name, required = false, icon: Icon, value, onChange, children }) => (
-    <div className="relative w-full">
-      <select
-        id={id}
-        name={name}
-        required={required}
-        value={value}
-        onChange={onChange}
-        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-      >
-        {children}
-      </select>
-      {Icon && <Icon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />}
-      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
-    </div>
-  );
+const SelectField: React.FC<SelectFieldProps> = ({
+  id,
+  name,
+  required = false,
+  icon: Icon,
+  value,
+  onChange,
+  children,
+}) => (
+  <div className="relative w-full">
+    <select
+      id={id}
+      name={name}
+      required={required}
+      value={value}
+      onChange={onChange}
+      className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+    >
+      {children}
+    </select>
+    {Icon && (
+      <Icon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+    )}
+    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+  </div>
+);
 const FormPage: React.FC<TutorRegistrationFormProps> = ({
   onSubmit,
   onSave,
-  logoUrl = "/growtechafrica.png",/*https://placehold.co/150x50/ffffff/333333?text=TEKTUTOR"*/
+  logoUrl = "/growtechafrica.png" /*https://placehold.co/150x50/ffffff/333333?text=TEKTUTOR"*/,
   programTitle = "Microsoft Skills for Jobs Microdegree Program",
   countries = defaultCountries,
   courses = defaultCourses,
@@ -126,48 +176,40 @@ const FormPage: React.FC<TutorRegistrationFormProps> = ({
   educationLevels = defaultEducationLevels,
 }) => {
   const [formData, setFormData] = useState<IFormData>({
-    firstName: '',
-    lastName: '',
-    birthDay: '',
-    birthMonth: '',
-    birthYear: '',
-    gender: '',
-    streetAddress: '',
-    streetAddressLine2: '',
-    city: '',
-    postalCode: '',
-    country: '',
-    email: '',
-    mobileNumber: '',
-    phoneNumber: '',
-    company: '',
-    ghanaCardNo: '',
-    ghanaCardImage: null,
-    course: '',
-    status: '',
+    firstName: "",
+    lastName: "",
+    birthDay: "",
+    birthMonth: "",
+    birthYear: "",
+    gender: "",
+    streetAddress: "",
+    streetAddressLine2: "",
+    city: "",
+    postalCode: "",
+    country: "",
+    email: "",
+    mobileNumber: "",
+    phoneNumber: "",
+    company: "",
+    cardNo: "",
+    cardImage: null,
+    course: "",
+    status: "",
     levelOfEducation: educationLevels[0],
-    additionalComments: '',
+    additionalComments: "",
   });
 
-  const [fileName, setFileName] = useState<string>('');
+  const [fileName, setFileName] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-// --- Google API Initialization ---
-const CLIENT_ID = "37330235633-mg8j08itj9r63g0enqks67olvia4dsnf.apps.googleusercontent.com";
-const SCOPES = "https://www.googleapis.com/auth/gmail.send";
-  useEffect(() => {
-    const initClient = () => {
-      gapi.client.init({
-        clientId: CLIENT_ID,
-        scope: SCOPES,
-      });
-    };
-    gapi.load("client:auth2", initClient);
-  }, []);
 
   // --- Event Handlers ---
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -176,60 +218,97 @@ const SCOPES = "https://www.googleapis.com/auth/gmail.send";
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      setFormData(prevState => ({
+      setFormData((prevState) => ({
         ...prevState,
-        ghanaCardImage: file,
+        cardImage: file,
       }));
       setFileName(file.name);
     }
   };
 
-  const handleAuth = () => {
-    gapi.auth2.getAuthInstance().signIn().then((user: any) => {
-      const accessToken = user.getAuthResponse().access_token;
-      // Send email data + token to backend API
-      fetch("/api/send-email", {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    /*setIsSubmitted(true);
+    if (onSubmit) onSubmit(formData);
+    */
+    // Prepare form data for sending (handle file upload if needed)
+    const data = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === "cardImage" && value) {
+        data.append(key, value as File);
+      } else {
+        data.append(key, value as string);
+      }
+    });
+
+    try {
+      let base64CardImage = null;
+      if (formData.cardImage) {
+        // Convert file to base64
+        base64CardImage = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(formData.cardImage as File);
+        });
+      }
+
+      // Prepare JSON data, including base64 image if present
+      const { cardImage, ...jsonData } = formData;
+      const payload = {
+        ...jsonData,
+        cardImage: base64CardImage, // or { data: base64CardImage, name: formData.cardImage?.name }
+      };
+      //console.log("Submitting form data:", Object.fromEntries(data.entries()));
+      //const { cardImage, ...jsonData } = formData;
+      console.log("form data:", payload);
+      const response = await fetch(apiUrl, {
         method: "POST",
+        //body: data,
+        body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          // Note: Do NOT set Content-Type when sending FormData; browser will set it automatically.
         },
-        body: JSON.stringify({
-          to: "richard.omoniyi@gmail.com",
-          subject: "Regsitration Form Submission",
-          body: JSON.stringify(formData, null, 2), // Send form data as email body
-          accessToken: accessToken,
-        }),
       });
-    });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        if (onSubmit) onSubmit(formData);
+      } else {
+        alert("Submission failed. Please try again.");
+      }
+    } catch (error) {
+      alert("An error occurred. Please try again.");
+    }
   };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-    if (onSubmit) onSubmit(formData);
-     handleAuth(); // Call handleAuth to send the email
-  };
-  
+
   const handleSave = () => {
     if (onSave) {
       onSave(formData);
     } else {
-      alert('Your progress has been saved!');
+      alert("Your progress has been saved!");
     }
   };
-
   // --- Render Logic ---
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4 font-sans">
         <div className="w-full max-w-2xl bg-white p-8 md:p-12 rounded-2xl shadow-lg text-center">
-            <h2 className="text-3xl font-bold text-green-600 mb-4">Registration Successful!</h2>
-            <p className="text-gray-600 mb-6">Thank you for applying to the {programTitle}. We have received your information.</p>
-            <button 
-                onClick={() => setIsSubmitted(false)}
-                className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300"
-            >
-                Submit Another Application
-            </button>
+          <h2 className="text-3xl font-bold text-green-600 mb-4">
+            Registration Successful!
+          </h2>
+          <p className="text-gray-600 mb-6">
+            Thank you for applying to the {programTitle}. We have received your
+            information.
+          </p>
+          <button
+            onClick={() => setIsSubmitted(false)}
+            className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300"
+          >
+            Submit Another Application
+          </button>
         </div>
       </div>
     );
@@ -241,27 +320,70 @@ const SCOPES = "https://www.googleapis.com/auth/gmail.send";
         {/* Form Header */}
         <div className="text-center mb-8">
           <a href="/" className="block mb-4">
-            <img src={logoUrl} alt="Institute Logo" className="mx-auto mb-4 h-16"/>
-            </a>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800">{programTitle}</h1>
-          <p className="text-gray-500 mt-2">Fill out the form carefully for registration</p>
+            <img
+              src={logoUrl}
+              alt="Institute Logo"
+              className="mx-auto mb-4 h-16"
+            />
+          </a>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
+            {programTitle}
+          </h1>
+          <p className="text-gray-500 mt-2">
+            Fill out the form carefully for registration
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Section: Personal Information */}
           <fieldset className="p-6 border border-gray-200 rounded-lg">
-            <legend className="px-2 text-lg font-semibold text-gray-700">Personal Information</legend>
+            <legend className="px-2 text-lg font-semibold text-gray-700">
+              Personal Information
+            </legend>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-600 mb-2">Student Name *</label>
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm font-medium text-gray-600 mb-2"
+                >
+                  Student Name *
+                </label>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <InputField id="firstName" name="firstName" placeholder="First Name" required icon={User} value={formData.firstName} onChange={handleChange} />
-                  <InputField id="lastName" name="lastName" placeholder="Last Name" required icon={User} value={formData.lastName} onChange={handleChange} />
+                  <InputField
+                    id="firstName"
+                    name="firstName"
+                    placeholder="First Name"
+                    required
+                    icon={User}
+                    value={formData.firstName}
+                    onChange={handleChange}
+                  />
+                  <InputField
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Last Name"
+                    required
+                    icon={User}
+                    value={formData.lastName}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
               <div>
-                <label htmlFor="gender" className="block text-sm font-medium text-gray-600 mb-2">Gender *</label>
-                <SelectField id="gender" name="gender" required icon={User} value={formData.gender} onChange={handleChange}>
+                <label
+                  htmlFor="gender"
+                  className="block text-sm font-medium text-gray-600 mb-2"
+                >
+                  Gender *
+                </label>
+                <SelectField
+                  id="gender"
+                  name="gender"
+                  required
+                  icon={User}
+                  value={formData.gender}
+                  onChange={handleChange}
+                >
                   <option value="">Please Select</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -270,19 +392,54 @@ const SCOPES = "https://www.googleapis.com/auth/gmail.send";
                 </SelectField>
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-600 mb-2">Birth Date *</label>
+                <label className="block text-sm font-medium text-gray-600 mb-2">
+                  Birth Date *
+                </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <SelectField id="birthDay" name="birthDay" required icon={Calendar} value={formData.birthDay} onChange={handleChange}>
+                  <SelectField
+                    id="birthDay"
+                    name="birthDay"
+                    required
+                    icon={Calendar}
+                    value={formData.birthDay}
+                    onChange={handleChange}
+                  >
                     <option value="">Day</option>
-                    {days.map(day => <option key={day} value={day}>{day}</option>)}
+                    {days.map((day) => (
+                      <option key={day} value={day}>
+                        {day}
+                      </option>
+                    ))}
                   </SelectField>
-                  <SelectField id="birthMonth" name="birthMonth" required icon={Calendar} value={formData.birthMonth} onChange={handleChange}>
+                  <SelectField
+                    id="birthMonth"
+                    name="birthMonth"
+                    required
+                    icon={Calendar}
+                    value={formData.birthMonth}
+                    onChange={handleChange}
+                  >
                     <option value="">Month</option>
-                    {months.map((month) => <option key={month} value={month}>{month}</option>)}
+                    {months.map((month) => (
+                      <option key={month} value={month}>
+                        {month}
+                      </option>
+                    ))}
                   </SelectField>
-                  <SelectField id="birthYear" name="birthYear" required icon={Calendar} value={formData.birthYear} onChange={handleChange}>
+                  <SelectField
+                    id="birthYear"
+                    name="birthYear"
+                    required
+                    icon={Calendar}
+                    value={formData.birthYear}
+                    onChange={handleChange}
+                  >
                     <option value="">Year</option>
-                    {years.map(year => <option key={year} value={year}>{year}</option>)}
+                    {years.map((year) => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
                   </SelectField>
                 </div>
               </div>
@@ -291,81 +448,243 @@ const SCOPES = "https://www.googleapis.com/auth/gmail.send";
 
           {/* Section: Contact Information */}
           <fieldset className="p-6 border border-gray-200 rounded-lg">
-            <legend className="px-2 text-lg font-semibold text-gray-700">Contact Information</legend>
+            <legend className="px-2 text-lg font-semibold text-gray-700">
+              Contact Information
+            </legend>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="md:col-span-2">
-                <label htmlFor="streetAddress" className="block text-sm font-medium text-gray-600 mb-2">Address</label>
-                <InputField id="streetAddress" name="streetAddress" placeholder="Street Address" icon={Globe} value={formData.streetAddress} onChange={handleChange} />
+                <label
+                  htmlFor="streetAddress"
+                  className="block text-sm font-medium text-gray-600 mb-2"
+                >
+                  Address
+                </label>
+                <InputField
+                  id="streetAddress"
+                  name="streetAddress"
+                  placeholder="Street Address"
+                  icon={Globe}
+                  value={formData.streetAddress}
+                  onChange={handleChange}
+                />
               </div>
               <div className="md:col-span-2">
-                 <InputField id="streetAddressLine2" name="streetAddressLine2" placeholder="Street Address Line 2" icon={Globe} value={formData.streetAddressLine2} onChange={handleChange} />
+                <InputField
+                  id="streetAddressLine2"
+                  name="streetAddressLine2"
+                  placeholder="Street Address Line 2"
+                  icon={Globe}
+                  value={formData.streetAddressLine2}
+                  onChange={handleChange}
+                />
               </div>
-              <InputField id="city" name="city" placeholder="City" icon={Globe} value={formData.city} onChange={handleChange} />
-              <InputField id="postalCode" name="postalCode" placeholder="Postal / Zip Code" icon={Globe} value={formData.postalCode} onChange={handleChange} />
+              <InputField
+                id="city"
+                name="city"
+                placeholder="City"
+                icon={Globe}
+                value={formData.city}
+                onChange={handleChange}
+              />
+              <InputField
+                id="postalCode"
+                name="postalCode"
+                placeholder="Postal / Zip Code"
+                icon={Globe}
+                value={formData.postalCode}
+                onChange={handleChange}
+              />
               <div className="md:col-span-2">
-                <SelectField id="country" name="country" icon={Globe} value={formData.country} onChange={handleChange}>
+                <SelectField
+                  id="country"
+                  name="country"
+                  icon={Globe}
+                  value={formData.country}
+                  onChange={handleChange}
+                >
                   <option value="">Select Country</option>
-                  {countries.map(country => <option key={country} value={country}>{country}</option>)}
+                  {countries.map((country) => (
+                    <option key={country} value={country}>
+                      {country}
+                    </option>
+                  ))}
                 </SelectField>
               </div>
-              <InputField id="email" name="email" type="email" placeholder="E-mail Address" required icon={Mail} value={formData.email} onChange={handleChange} />
-              <InputField id="mobileNumber" name="mobileNumber" type="tel" placeholder="Mobile Number" required icon={Phone} value={formData.mobileNumber} onChange={handleChange} />
-              <InputField id="phoneNumber" name="phoneNumber" type="tel" placeholder="Phone Number (Optional)" icon={Phone} value={formData.phoneNumber} onChange={handleChange} />
-              <InputField id="company" name="company" placeholder="Company (Optional)" icon={Building} value={formData.company} onChange={handleChange} />
+              <InputField
+                id="email"
+                name="email"
+                type="email"
+                placeholder="E-mail Address"
+                required
+                icon={Mail}
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <InputField
+                id="mobileNumber"
+                name="mobileNumber"
+                type="tel"
+                placeholder="Mobile Number"
+                required
+                icon={Phone}
+                value={formData.mobileNumber}
+                onChange={handleChange}
+              />
+              <InputField
+                id="phoneNumber"
+                name="phoneNumber"
+                type="tel"
+                placeholder="Phone Number (Optional)"
+                icon={Phone}
+                value={formData.phoneNumber}
+                onChange={handleChange}
+              />
+              <InputField
+                id="company"
+                name="company"
+                placeholder="Company (Optional)"
+                icon={Building}
+                value={formData.company}
+                onChange={handleChange}
+              />
             </div>
           </fieldset>
 
           {/* Section: Identification & Education */}
           <fieldset className="p-6 border border-gray-200 rounded-lg">
-            <legend className="px-2 text-lg font-semibold text-gray-700">Identification & Education</legend>
+            <legend className="px-2 text-lg font-semibold text-gray-700">
+              Identification & Education
+            </legend>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label htmlFor="ghanaCardNo" className="block text-sm font-medium text-gray-600 mb-2">National Identity Number *</label>
-                    <InputField id="ghanaCardNo" name="ghanaCardNo" placeholder="XXXXXXXXXX" required icon={Hash} value={formData.ghanaCardNo} onChange={handleChange} />
-                </div>
-                <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-600 mb-2">NIN Card Image</label>
-                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                        <div className="space-y-1 text-center">
-                            <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                            <div className="flex text-sm text-gray-600">
-                                <label htmlFor="ghanaCardImage" className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
-                                    <span>Upload a file</span>
-                                    <input id="ghanaCardImage" name="ghanaCardImage" type="file" className="sr-only" onChange={handleFileChange} accept="image/*,.pdf" />
-                                </label>
-                                <p className="pl-1">or drag and drop</p>
-                            </div>
-                            <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                            {fileName && <p className="text-sm text-green-600 mt-2"><FileText className="inline-block h-4 w-4 mr-1" />{fileName}</p>}
-                        </div>
+              <div>
+                <label
+                  htmlFor="cardNo"
+                  className="block text-sm font-medium text-gray-600 mb-2"
+                >
+                  National Identity Number *
+                </label>
+                <InputField
+                  id="cardNo"
+                  name="cardNo"
+                  placeholder="XXXXXXXXXX"
+                  required
+                  icon={Hash}
+                  value={formData.cardNo}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-600 mb-2">
+                  NIN Card Image
+                </label>
+                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                  <div className="space-y-1 text-center">
+                    <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                    <div className="flex text-sm text-gray-600">
+                      <label
+                        htmlFor="cardImage"
+                        className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                      >
+                        <span>Upload a file</span>
+                        <input
+                          id="cardImage"
+                          name="cardImage"
+                          type="file"
+                          className="sr-only"
+                          onChange={handleFileChange}
+                          accept="image/*,.pdf"
+                        />
+                      </label>
+                      <p className="pl-1">or drag and drop</p>
                     </div>
+                    <p className="text-xs text-gray-500">
+                      PNG, JPG, GIF up to 10MB
+                    </p>
+                    {fileName && (
+                      <p className="text-sm text-green-600 mt-2">
+                        <FileText className="inline-block h-4 w-4 mr-1" />
+                        {fileName}
+                      </p>
+                    )}
+                  </div>
                 </div>
-                <div>
-                    <label htmlFor="course" className="block text-sm font-medium text-gray-600 mb-2">Course *</label>
-                    <SelectField id="course" name="course" required value={formData.course} onChange={handleChange}>
-                        <option value="">Please Select</option>
-                        {courses.map(c => <option key={c} value={c}>{c}</option>)}
-                    </SelectField>
-                </div>
-                 <div>
-                    <label htmlFor="status" className="block text-sm font-medium text-gray-600 mb-2">Current Status *</label>
-                    <SelectField id="status" name="status" required value={formData.status} onChange={handleChange}>
-                        <option value="">Please Select</option>
-                        {statuses.map(s => <option key={s} value={s}>{s}</option>)}
-                    </SelectField>
-                </div>
-                 <div className="md:col-span-2">
-                    <label htmlFor="levelOfEducation" className="block text-sm font-medium text-gray-600 mb-2">Highest Level of Education *</label>
-                    <SelectField id="levelOfEducation" name="levelOfEducation" required value={formData.levelOfEducation} onChange={handleChange}>
-                        {educationLevels.map(level => <option key={level} value={level}>{level}</option>)}
-                    </SelectField>
-                </div>
+              </div>
+              <div>
+                <label
+                  htmlFor="course"
+                  className="block text-sm font-medium text-gray-600 mb-2"
+                >
+                  Course *
+                </label>
+                <SelectField
+                  id="course"
+                  name="course"
+                  required
+                  value={formData.course}
+                  onChange={handleChange}
+                >
+                  <option value="">Please Select</option>
+                  {courses.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </SelectField>
+              </div>
+              <div>
+                <label
+                  htmlFor="status"
+                  className="block text-sm font-medium text-gray-600 mb-2"
+                >
+                  Current Status *
+                </label>
+                <SelectField
+                  id="status"
+                  name="status"
+                  required
+                  value={formData.status}
+                  onChange={handleChange}
+                >
+                  <option value="">Please Select</option>
+                  {statuses.map((s) => (
+                    <option key={s} value={s}>
+                      {s}
+                    </option>
+                  ))}
+                </SelectField>
+              </div>
+              <div className="md:col-span-2">
+                <label
+                  htmlFor="levelOfEducation"
+                  className="block text-sm font-medium text-gray-600 mb-2"
+                >
+                  Highest Level of Education *
+                </label>
+                <SelectField
+                  id="levelOfEducation"
+                  name="levelOfEducation"
+                  required
+                  value={formData.levelOfEducation}
+                  onChange={handleChange}
+                >
+                  {educationLevels.map((level) => (
+                    <option key={level} value={level}>
+                      {level}
+                    </option>
+                  ))}
+                </SelectField>
+              </div>
             </div>
           </fieldset>
-          
+
           {/* Section: Additional Comments */}
           <div>
-            <label htmlFor="additionalComments" className="block text-sm font-medium text-gray-600 mb-2">Additional Comments</label>
+            <label
+              htmlFor="additionalComments"
+              className="block text-sm font-medium text-gray-600 mb-2"
+            >
+              Additional Comments
+            </label>
             <textarea
               id="additionalComments"
               name="additionalComments"
