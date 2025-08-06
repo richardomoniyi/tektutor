@@ -132,12 +132,32 @@ const HomePage = () => {
           </div>
           {/* Program Card 3 */}
           <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">DEV AI</h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">AI Developer</h3>
             <p className="mb-4">Dive into the world of Artificial Intelligence. Learn to develop and deploy AI solutions using modern tools and techniques.</p>
             <ul className="space-y-2 text-gray-600">
               <li><span className="font-bold grass-green">12 ECTS</span> Credits</li>
               <li><span className="font-bold grass-green">324 Hours</span> of Learning</li>
               <li><span className="font-bold grass-green">7 Courses</span></li>
+            </ul>
+          </div>
+          {/* Program Card 4 */}
+          <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">Data Engineer </h3>
+            <p className="mb-4">learn to build, manage, and optimize data pipelines and infrastructure that collect, clean, store, and deliver data for analysis and business use.</p>
+            <ul className="space-y-2 text-gray-600">
+              <li><span className="font-bold grass-green">9 ECTS</span> Credits</li>
+              <li><span className="font-bold grass-green">324 Hours</span> of Learning</li>
+              <li><span className="font-bold grass-green">6 Courses</span></li>
+            </ul>
+          </div>
+          {/* Program Card 5 */}
+          <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">Data Analyst </h3>
+            <p className="mb-4">Learn to collect, clean, analyze, and visualize data to uncover insights and support informed business decisions.</p>
+            <ul className="space-y-2 text-gray-600">
+              <li><span className="font-bold grass-green">9 ECTS</span> Credits</li>
+              <li><span className="font-bold grass-green">324 Hours</span> of Learning</li>
+              <li><span className="font-bold grass-green">6 Courses</span></li>
             </ul>
           </div>
         </div>
@@ -164,8 +184,9 @@ const HomePage = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Get In Touch</h2>
           <p className="text-center text-lg text-gray-300 mb-12 max-w-3xl mx-auto">Have questions? Want to enroll? We'd love to hear from you. Reach out to us, and let's start your tech journey together.</p>
           <div className="max-w-lg mx-auto text-center">
-            <p className="text-lg mb-2">Email us at: <a href="mailto:contact@growtechafrica.com" className="text-grass-green hover:underline">contact@growtechafrica.com</a></p>
-            <p className="text-lg">Or visit us at: No 33 Street, Ikoyi, Lagos, Nigeria</p>
+            <p className="text-lg mb-2">Email us at: <a href="mailto:enquiry@growtechafrica.com" className="text-grass-green hover:underline">contact@growtechafrica.com</a></p>
+            <p className="text-lg">Or visit us at: 75 CMD Rd, Magodo GRA, Lagos, Nigeria</p>
+            <p className="text-lg">Phone: <a href="tel:+2348104373270" className="text-grass-green hover:underline">+234 810 437 3270</a></p>
             <div className="mt-8">
               {/* Use <Link to="/form"> if using React Router, else use <a href="form.html"> */}
               <Link to="/form" className="bg-grass-green text-white font-bold py-3 px-8 rounded-full hover:bg-grass-green-dark transition duration-300 text-lg">Enroll Now</Link>
