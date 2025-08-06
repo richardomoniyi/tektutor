@@ -210,7 +210,7 @@ const HomePage = () => {
     {/* Program Card 5 */}
     <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
       <img
-        src="https://images.unsplash.com/photo-1515168833906-d2a3b82b302b?auto=format&fit=crop&w=600&q=80"
+       src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
         alt="Data Analyst"
         className="w-full h-40 object-cover rounded-md mb-4"
       />
