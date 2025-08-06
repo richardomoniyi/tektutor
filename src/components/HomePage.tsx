@@ -106,66 +106,138 @@ const HomePage = () => {
       </section>
 
       {/* Programs Section */}
-      <section id="programs" className="py-20 bg-gray-50">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Microsoft Skills for Jobs Microdegree Programs</h2>
-        <p className="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">These programs are your gateway to becoming a proficient technology expert. Each program is designed for online, independent study, supported by mentorship, and awards certificates with European Credit Transfer and Accumulation System (ECTS) credits.</p>
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Program Card 1 */}
-          <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Cloud and Cybersecurity</h3>
-            <p className="mb-4">Gain expertise in one of the most in-demand fields in technology. Learn to secure and manage cloud infrastructure.</p>
-            <ul className="space-y-2 text-gray-600">
-              <li><span className="font-bold grass-green">12 ECTS</span> Credits</li>
-              <li><span className="font-bold grass-green">324 Hours</span> of Learning</li>
-              <li><span className="font-bold grass-green">6 Courses</span></li>
-            </ul>
-          </div>
-          {/* Program Card 2 */}
-          <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Power Platform</h3>
-            <p className="mb-4">Master Microsoft's Power Platform to build custom apps, automate workflows, and analyze data without writing code.</p>
-            <ul className="space-y-2 text-gray-600">
-              <li><span className="font-bold grass-green">8 ECTS</span> Credits</li>
-              <li><span className="font-bold grass-green">216 Hours</span> of Learning</li>
-              <li><span className="font-bold grass-green">4 Courses</span></li>
-            </ul>
-          </div>
-          {/* Program Card 3 */}
-          <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">AI Developer</h3>
-            <p className="mb-4">Dive into the world of Artificial Intelligence. Learn to develop and deploy AI solutions using modern tools and techniques.</p>
-            <ul className="space-y-2 text-gray-600">
-              <li><span className="font-bold grass-green">12 ECTS</span> Credits</li>
-              <li><span className="font-bold grass-green">324 Hours</span> of Learning</li>
-              <li><span className="font-bold grass-green">7 Courses</span></li>
-            </ul>
-          </div>
-          {/* Program Card 4 */}
-          <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Data Engineer </h3>
-            <p className="mb-4">learn to build, manage, and optimize data pipelines and infrastructure that collect, clean, store, and deliver data for analysis and business use.</p>
-            <ul className="space-y-2 text-gray-600">
-              <li><span className="font-bold grass-green">9 ECTS</span> Credits</li>
-              <li><span className="font-bold grass-green">324 Hours</span> of Learning</li>
-              <li><span className="font-bold grass-green">6 Courses</span></li>
-            </ul>
-          </div>
-          {/* Program Card 5 */}
-          <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Data Analyst </h3>
-            <p className="mb-4">Learn to collect, clean, analyze, and visualize data to uncover insights and support informed business decisions.</p>
-            <ul className="space-y-2 text-gray-600">
-              <li><span className="font-bold grass-green">9 ECTS</span> Credits</li>
-              <li><span className="font-bold grass-green">324 Hours</span> of Learning</li>
-              <li><span className="font-bold grass-green">6 Courses</span></li>
-            </ul>
-          </div>
-        </div>
-        <div className="mt-8 text-center">
-          {/* Use <Link to="/form"> if using React Router, else use <a href="form.html"> */}
-          <Link to="/form" className="bg-grass-green text-white font-bold py-3 px-8 rounded-full hover:bg-grass-green-dark transition duration-300 text-lg">Enroll Now</Link>
-        </div>
-      </section>
+<section id="programs" className="py-20 bg-gray-50">
+  <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">
+    Microsoft Skills for Jobs Microdegree Programs
+  </h2>
+  <p className="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+    These programs are your gateway to becoming a proficient technology expert. Each program is designed for online, independent study, supported by mentorship, and awards certificates with European Credit Transfer and Accumulation System (ECTS) credits.
+  </p>
+  <div className="w-full md:w-2/3 mx-auto">
+  <div className="grid md:grid-cols-3 gap-8">
+    {/* Program Card 1 */}
+    <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+      <img
+        src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80"
+        alt="Cloud and Cybersecurity"
+        className="w-full h-40 object-cover rounded-md mb-4"
+      />
+      <h3 className="text-2xl font-bold text-gray-800 mb-4">Cloud and Cybersecurity</h3>
+      <p className="mb-4">
+        Gain expertise in one of the most in-demand fields in technology. Learn to secure and manage cloud infrastructure.
+      </p>
+      <ul className="space-y-2 text-gray-600">
+        <li>
+          <span className="font-bold grass-green">12 ECTS</span> Credits
+        </li>
+        <li>
+          <span className="font-bold grass-green">324 Hours</span> of Learning
+        </li>
+        <li>
+          <span className="font-bold grass-green">6 Courses</span>
+        </li>
+      </ul>
+    </div>
+    {/* Program Card 2 */}
+    <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+      <img
+        src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80"
+        alt="Power Platform"
+        className="w-full h-40 object-cover rounded-md mb-4"
+      />
+      <h3 className="text-2xl font-bold text-gray-800 mb-4">Power Platform</h3>
+      <p className="mb-4">
+        Master Microsoft's Power Platform to build custom apps, automate workflows, and analyze data without writing code.
+      </p>
+      <ul className="space-y-2 text-gray-600">
+        <li>
+          <span className="font-bold grass-green">8 ECTS</span> Credits
+        </li>
+        <li>
+          <span className="font-bold grass-green">216 Hours</span> of Learning
+        </li>
+        <li>
+          <span className="font-bold grass-green">4 Courses</span>
+        </li>
+      </ul>
+    </div>
+    {/* Program Card 3 */}
+    <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+      <img
+        src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+        alt="AI Developer"
+        className="w-full h-40 object-cover rounded-md mb-4"
+      />
+      <h3 className="text-2xl font-bold text-gray-800 mb-4">AI Developer</h3>
+      <p className="mb-4">
+        Dive into the world of Artificial Intelligence. Learn to develop and deploy AI solutions using modern tools and techniques.
+      </p>
+      <ul className="space-y-2 text-gray-600">
+        <li>
+          <span className="font-bold grass-green">12 ECTS</span> Credits
+        </li>
+        <li>
+          <span className="font-bold grass-green">324 Hours</span> of Learning
+        </li>
+        <li>
+          <span className="font-bold grass-green">7 Courses</span>
+        </li>
+      </ul>
+    </div>
+    {/* Program Card 4 */}
+    <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+      <img
+        src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"
+        alt="Data Engineer"
+        className="w-full h-40 object-cover rounded-md mb-4"
+      />
+      <h3 className="text-2xl font-bold text-gray-800 mb-4">Data Engineer</h3>
+      <p className="mb-4">
+        Learn to build, manage, and optimize data pipelines and infrastructure that collect, clean, store, and deliver data for analysis and business use.
+      </p>
+      <ul className="space-y-2 text-gray-600">
+        <li>
+          <span className="font-bold grass-green">9 ECTS</span> Credits
+        </li>
+        <li>
+          <span className="font-bold grass-green">324 Hours</span> of Learning
+        </li>
+        <li>
+          <span className="font-bold grass-green">6 Courses</span>
+        </li>
+      </ul>
+    </div>
+    {/* Program Card 5 */}
+    <div className="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+      <img
+        src="https://images.unsplash.com/photo-1515168833906-d2a3b82b302b?auto=format&fit=crop&w=600&q=80"
+        alt="Data Analyst"
+        className="w-full h-40 object-cover rounded-md mb-4"
+      />
+      <h3 className="text-2xl font-bold text-gray-800 mb-4">Data Analyst</h3>
+      <p className="mb-4">
+        Learn to collect, clean, analyze, and visualize data to uncover insights and support informed business decisions.
+      </p>
+      <ul className="space-y-2 text-gray-600">
+        <li>
+          <span className="font-bold grass-green">9 ECTS</span> Credits
+        </li>
+        <li>
+          <span className="font-bold grass-green">324 Hours</span> of Learning
+        </li>
+        <li>
+          <span className="font-bold grass-green">6 Courses</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div className="mt-8 text-center">
+    <Link to="/form" className="bg-grass-green text-white font-bold py-3 px-8 rounded-full hover:bg-grass-green-dark transition duration-300 text-lg">
+      Enroll Now
+    </Link>
+  </div>
+  </div>
+</section>
 
       {/* Partners Section */}
       <section id="partners" className="py-20">
