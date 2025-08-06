@@ -256,7 +256,7 @@ const HomePage = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Get In Touch</h2>
           <p className="text-center text-lg text-gray-300 mb-12 max-w-3xl mx-auto">Have questions? Want to enroll? We'd love to hear from you. Reach out to us, and let's start your tech journey together.</p>
           <div className="max-w-lg mx-auto text-center">
-            <p className="text-lg mb-2">Email us at: <a href="mailto:enquiry@growtechafrica.com" className="text-grass-green hover:underline">contact@growtechafrica.com</a></p>
+            <p className="text-lg mb-2">Email us at: <a href="mailto:enquiry@growtechafrica.com" className="text-grass-green hover:underline">enquiry@growtechafrica.com</a></p>
             <p className="text-lg">Or visit us at: 75 CMD Rd, Magodo GRA, Lagos, Nigeria</p>
             <p className="text-lg">Phone: <a href="tel:+2348104373270" className="text-grass-green hover:underline">+234 810 437 3270</a></p>
             <div className="mt-8">
