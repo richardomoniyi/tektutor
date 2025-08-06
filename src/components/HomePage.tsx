@@ -52,6 +52,7 @@ const HomePage = () => {
           <div className="hidden md:flex space-x-8">
             <a href="#about" className="text-gray-600 hover:text-grass-green transition duration-300">About Us</a>
             <a href="#programs" className="text-gray-600 hover:text-grass-green transition duration-300">Programs</a>
+            <a href="#Team" className="text-gray-600 hover:text-grass-green transition duration-300">Team</a>
             <a href="#partners" className="text-gray-600 hover:text-grass-green transition duration-300">Partners</a>
             <a href="#contact" className="text-gray-600 hover:text-grass-green transition duration-300">Contact</a>
           </div>
@@ -238,7 +239,51 @@ const HomePage = () => {
   </div>
   </div>
 </section>
-
+{/* Team Section */}
+<section id="team" className="py-20 bg-white">
+  <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Meet Our Team</h2>
+  <p className="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+    Our leadership team brings together deep expertise in technology, education, and innovation to empower Africa's next generation of tech leaders.
+  </p>
+  <div className="flex flex-wrap justify-center gap-8">
+    {/* Dr. George Babafemi */}
+    <div className="bg-gray-50 rounded-lg shadow-lg p-8 w-full max-w-xs flex flex-col items-center">
+      <img
+        src="/georgebabafemi.jpg"
+        alt="Dr. George Babafemi"
+        className="w-40 h-40 object-cover rounded-full mb-4 border-4 border-grass-green"
+      />
+      <h3 className="text-xl font-bold text-gray-800 mb-2">Dr. George Babafemi</h3>
+      <p className="text-gray-600 text-center">
+        Visionary educator and tech advocate with decades of experience in driving digital transformation across Africa's academic and business sectors.
+      </p>
+    </div>
+    {/* Dr. Richard Omoniyi */}
+    <div className="bg-gray-50 rounded-lg shadow-lg p-8 w-full max-w-xs flex flex-col items-center">
+      <img
+        src="/richard_profile.png"
+        alt="Dr. Richard Omoniyi"
+        className="w-40 h-40 object-cover rounded-full mb-4 border-4 border-grass-green"
+      />
+      <h3 className="text-xl font-bold text-gray-800 mb-2">Dr. Richard Omoniyi</h3>
+      <p className="text-gray-600 text-center">
+        Renowned technologist and mentor, passionate about bridging the skills gap and fostering innovation through accessible tech education.
+      </p>
+    </div>
+    {/* Kehinde Segun */}
+    <div className="bg-gray-50 rounded-lg shadow-lg p-8 w-full max-w-xs flex flex-col items-center">
+      <img
+        src="/kehindesegun.jpeg"
+        alt="Kehinde Segun"
+        className="w-40 h-40 object-cover rounded-full mb-4 border-4 border-grass-green"
+      />
+      <h3 className="text-xl font-bold text-gray-800 mb-2">Kehinde Segun</h3>
+      <p className="text-gray-600 text-center">
+        Experienced program manager and community builder, dedicated to empowering learners and supporting their journey into tech careers.
+      </p>
+    </div>
+  </div>
+</section>
       {/* Partners Section */}
       <section id="partners" className="py-20">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Our Esteemed Partners</h2>
